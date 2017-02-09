@@ -8,7 +8,8 @@ module.exports = Field.create({
 import React from 'react';
 import Field from '../Field';
 import { css } from 'glamor';
-import { FormInput } from '../../../admin/client/App/elemental';
+//import { FormInput } from '../../../admin/client/App/elemental';
+import HtmlField from '../html/HtmlField.js';
 //import tinymce from 'tinymce';
 //import { FormInput } from '../../../admin/client/App/elemental';
 //import evalDependsOn from '../../utils/evalDependsOn';
@@ -36,9 +37,11 @@ module.exports = Field.create({
 
 	valueChanged (lang, event) {
 
+		
+
 		var newValue = this.props.value ? this.props.value : {};
 
-		newValue[lang] = event.target.value
+		newValue[lang] = event.value
 		
 		this.props.onChange({
 			path: this.props.path,
@@ -52,47 +55,27 @@ module.exports = Field.create({
 
 	renderField () {
 
-		//<input value={this.props.value}/>
 
 		var langs = this.props.langs;
 
+		var props2 = Object.assign({}, this.props);
+
+		delete props2.dependsOn;
+		
+
 		var css_base = css({ 
 
-		  color: 'red',
-		  ':hover': {
-		    color: 'pink'
-		  },
-		  /*'@media(min-width: 800px)': {
-		    color: 'green',
-		    ':hover': {
-		      color: 'yellow'
-		    }
-		  }*/
+			'& label': {//field-type-i18nHtml FormField__inner label
+				'display': 'none',
+			},
+			/*'@media(min-width: 800px)': {
+			color: 'green',
+			':hover': {
+			  color: 'yellow'
+			}
+			}*/
 		})
 
-		/*var css_base = css({ 
-
-		  color: 'red',
-		  ':hover': {
-		    color: 'pink'
-		  },
-		  '@media(min-width: 800px)': {
-		    color: 'green',
-		    ':hover': {
-		      color: 'yellow'
-		    }
-		  }
-		})*/
-
-		/*
-		let mono = css({
-		  'color': 'red'
-		})
-
-		let bolder = css({
-		  'fontWeight': 'bolder'
-		})
-		{...css(bolder)}*/
 
 		let css_tab  = css({
 		  //'fontWeight': 'bolder',
@@ -115,12 +98,13 @@ module.exports = Field.create({
 		let css_input_selected  = css({
 		  'display': 'block !important'
 		})
+		
 
-		
-		
+
+
 
 		return (
-			<div>
+			<div className={css_base}>
 			
 				{langs.length > 1 ? 
 
@@ -157,17 +141,31 @@ module.exports = Field.create({
 						var rules = css(css_input);
 					}
 
-					return <FormInput {...{
-								value:this.props.value ? this.props.value[lang] : '',
-								//autoFocus: this.props.autoFocus,
-								//inputProps: this.props.inputProps
-								name: this.getInputName(this.props.path+'.'+lang),
-								autoComplete: 'off',
-								//name: this.getInputName(this.props.path),
-								onChange: (e) => this.valueChanged(lang,e),
-								ref: 'focusTarget',
 
-							}} {...rules}/>
+					
+					
+					return (
+
+						<div {...rules}>
+
+							<HtmlField {...props2} {...{
+								value: this.props.value ? this.props.value[lang] : '',
+								//name: this.getInputName(this.props.path+'.'+lang),
+								//autoComplete: 'off',
+								onChange: (e) => this.valueChanged(lang,e),
+								//ref: 'focusTarget',
+
+								values : this.props.value,
+								path: this.props.paths[lang],
+								//path: this.props.path,
+								//inputNamePrefix : `${this.props.path}`,//[${index}]
+								//key : lang,
+								mode: 'edit'
+
+							}} />
+
+						</div>
+					)
 
 				})}
 				

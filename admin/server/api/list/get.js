@@ -3,6 +3,8 @@ var assign = require('object-assign');
 var listToArray = require('list-to-array');
 
 module.exports = function (req, res) {
+
+	//console.log('list??',req.list.key);
 	var where = {};
 	var fields = req.query.fields;
 	var includeCount = req.query.count !== 'false';

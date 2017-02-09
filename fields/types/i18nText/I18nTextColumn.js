@@ -10,10 +10,13 @@ var Column = React.createClass({
 		linkTo: React.PropTypes.string,
 	},
 	getValue () {
-
+		
 		// cropping text is important for textarea, which uses this column
 		var value = this.props.data.fields[this.props.col.path];
-		value = value[Object.keys(value)[0]]  //# return first lang
+
+		var defaultLang = this.props.col.field.defaultLang ? this.props.col.field.defaultLang : this.props.col.field.langs[0]
+
+		value = value[defaultLang]  // Object.keys(value)[0]
 		
 		return value ? value.substr(0, 100) : null;
 	},

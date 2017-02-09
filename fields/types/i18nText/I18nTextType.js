@@ -12,9 +12,10 @@ function i18nText (list, path, options) {
 
 //console.log("> ",list)//multilang
 
+
 	this.options = options;
 	this._nativeType = String;
-	this._properties = ['langs'];
+	this._properties = ['langs','defaultLang'];
 
 	//this._underscoreMethods = ['crop'];
 	i18nText.super_.call(this, list, path, options);
@@ -207,7 +208,6 @@ i18nText.prototype.validateRequiredInput = function (item, data, callback) {
     // Utility function to get that exact field value from all the form data
     var value = this.getInputFromData(data);
 
-    console.log('required?',value)
 
     // If the value is null, undefined or empty string this will be false
     var result = !!value;
