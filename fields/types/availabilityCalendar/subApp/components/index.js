@@ -107,7 +107,7 @@ var App = React.createClass({
 
     e.preventDefault();
 
-    var newCursor = moment(this.props.cursor).subtract(1, 'month')
+    var newCursor = moment(this.props.app.cursor).subtract(1, 'month')
 
     this.props.dispatch({type : 'CURSOR_CHANGE', cursor: newCursor});
 
@@ -122,7 +122,7 @@ var App = React.createClass({
 
     e.preventDefault();
 
-    var newCursor = moment(this.props.cursor).add(1, 'month')
+    var newCursor = moment(this.props.app.cursor).add(1, 'month')
 
     this.props.dispatch({type : 'CURSOR_CHANGE', cursor: newCursor});
 
