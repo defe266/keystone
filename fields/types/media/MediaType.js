@@ -82,10 +82,18 @@ media.prototype.updateItem = function (item, data, callback) {
 
 	}else{
 
-		item.set(this.path, []);
-	}
+		if(this.options.many){
 
-	
+			item.set(this.path, []);
+
+		}else{
+
+			//console.log("null");
+
+			item.set(this.path, null);
+		}
+		
+	}
 
 	process.nextTick(callback);
 };

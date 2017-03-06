@@ -8,6 +8,7 @@ module.exports = Field.create({
 import React from 'react';
 import Field from '../Field';
 import { css } from 'glamor';
+import tinymce from 'tinymce';
 //import { FormInput } from '../../../admin/client/App/elemental';
 import HtmlField from '../html/HtmlField.js';
 //import tinymce from 'tinymce';

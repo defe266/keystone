@@ -106,7 +106,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
       self.setState({uploads : uploads});
 
       //# trigger change of img list with the new path added
-      var files = self.props.files;
+      var files = self.props.value;
 
       files.push(id); //index ??????
 
@@ -120,7 +120,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
     if(self.props.onChange){
 
-      var files = self.props.files;
+      var files = self.props.value;
 
       files = _.reject(files, function(i){
 
@@ -169,7 +169,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
     if(self.props.onChange){
 
-      var files = self.props.files;
+      var files = self.props.value;
 
       moveObjectAtIndex(files, indexFrom, indexTo);
       /*
@@ -189,7 +189,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
 
     //# uploaded
-    _.each(this.props.files, function(id, index){
+    _.each(this.props.value, function(id, index){
 
       files.push(
 

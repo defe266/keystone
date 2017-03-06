@@ -31,7 +31,7 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
   uploadFiles: function(files){
 
-    if(this.props.file){
+    if(this.props.value){
 
       if(window.confirm("¿Seguro que quieres sustituir el archivo?")){
 
@@ -56,12 +56,17 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
     var self = this;
 
+    if(self.props.onChange) self.props.onChange(file);
+
+    self.setState({upload : null});
+    /*
+
     //# si existía, la eliminamos
-    if(this.props.file){
+    if(this.props.value){
 
       //# Request
       request
-      .post(Keystone.adminPath + '/api/uploads/'+this.props.file+'/delete')
+      .post(Keystone.adminPath + '/api/uploads/'+this.props.value+'/delete')
       //.set('auth', this.props.token)
       .end(function(err, res){
 
@@ -80,7 +85,7 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
       if(self.props.onChange) self.props.onChange(file);
 
       self.setState({upload : null});
-    }
+    }*/
 
   },
 
@@ -93,10 +98,11 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
   render: function () {
 
     var self = this;
+    
 
-    if(this.props.file){
+    if(this.props.value){
 
-      var file = <File id={this.props.file} path={self.props.path} model={self.props.model} onDelete={self.deleteFile}/>;
+      var file = <File id={this.props.value} path={self.props.path} model={self.props.model} onDelete={self.deleteFile}/>;
     }
 
     if(this.state.upload){

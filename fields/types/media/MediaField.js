@@ -18,18 +18,21 @@ module.exports = Field.create({//React.createClass({
 			path: this.props.path,
 			value: value,
 		});
+
+
 	},
 
 	renderField () {
 
 		const props = this.props;
 
+
 		return (
 
 			<div>
 
 				{/*<DailyRateApp parent={parent} rates={rates} path={this.props.path}/>*/}
-				<ImgUploader path={this.props.path} many={props.many} model={props.model} files={props.value} onChange={this.change}/>
+				<ImgUploader path={this.props.path} many={props.many} model={props.model} value={props.value} onChange={this.change}/>
 				
 			</div>
 		);

@@ -21,7 +21,7 @@ function i18nText (list, path, options) {
 	i18nText.super_.call(this, list, path, options);
 }
 
-i18nText.properName = 'i18nText';
+i18nText.properName = 'I18nText';
 util.inherits(i18nText, FieldType);
 
 

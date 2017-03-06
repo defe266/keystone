@@ -22,7 +22,7 @@ function i18nHtml (list, path, options) {
 	i18nHtml.super_.call(this, list, path, options);
 }
 
-i18nHtml.properName = 'i18nHtml';
+i18nHtml.properName = 'I18nHtml';
 util.inherits(i18nHtml, FieldType);
 
 
