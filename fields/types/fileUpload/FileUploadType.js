@@ -18,7 +18,7 @@ function fileUpload (list, path, options) {
 	this.storage = options.storage;
 	fileUpload.super_.call(this, list, path, options);
 }
-fileUpload.properName = 'fileUpload';
+fileUpload.properName = 'FileUpload';
 util.inherits(fileUpload, FieldType);
 
 /**
