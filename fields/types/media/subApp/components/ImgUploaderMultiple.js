@@ -10,6 +10,7 @@ var ButtonFileInput = require('./ButtonFileInput.js');
 var File = require('./File.js');
 var Upload = require('./Upload.js');
 var FileHolder = require('./FileHolder.js');
+var ModalLibraryBtn = require('./ModalLibraryBtn.js');
 
 
 import {
@@ -132,6 +133,11 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
     } 
   },
 
+  addFromGallery: function(files){
+
+    this.props.onChange([...this.props.value, ...files]);
+  },
+
   changeOrder: function(indexFrom, indexTo){
 
     var self = this;
@@ -242,8 +248,9 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
             </ButtonFileInput>
           */}
             <Button component={ButtonFileInput} size="small" onChangeFile={this.uploadFilesManual}>Subir</Button>
-            {/*&nbsp;&nbsp;
-            <Button size="small">Importar desde Librería</Button>*/}
+            &nbsp;&nbsp;
+            <ModalLibraryBtn hiddenFiles={this.props.value} onAdd={this.addFromGallery}/>
+            
 
           </div>
 

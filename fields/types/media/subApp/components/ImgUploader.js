@@ -7,6 +7,7 @@ var ButtonFileInput = require('./ButtonFileInput.js');
 
 var File = require('./File.js');
 var Upload = require('./Upload.js');
+var ModalLibraryBtn = require('./ModalLibraryBtn.js');
 
 import {
   
@@ -33,10 +34,10 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
     if(this.props.value){
 
-      if(window.confirm("¿Seguro que quieres sustituir el archivo?")){
+      //if(window.confirm("¿Seguro que quieres sustituir el archivo?")){
 
         this.setState({upload : files[0]});
-      }
+     //}
 
     }else{
 
@@ -89,6 +90,15 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
   },
 
+  addFromGallery: function(file){
+
+    //if(window.confirm("¿Seguro que quieres sustituir el archivo?")){
+
+      if(this.props.onChange) this.props.onChange(file);
+
+    //}
+  },
+
   deleteFile: function(id){
 
     //console.log(files);
@@ -124,6 +134,8 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
 
             <Button component={ButtonFileInput} size="small" onChangeFile={this.uploadFilesManual}>Subir</Button>
+            &nbsp;&nbsp;
+            <ModalLibraryBtn hiddenFiles={[this.props.value]} onAdd={this.addFromGallery} single/>
 
           </div>
 

@@ -105,4 +105,22 @@ export default `
     top: 0;
 }
 
+
+
+.ModalLibraryBtn__item{
+  cursor: pointer;
+}
+
+.ModalLibraryBtn__item—selected .ImgUploader__item_img{
+  border: 3px solid #0082E8;
+}
+
+.ModalLibraryBtn__item__title{
+  overflow: hidden;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 4px 0;
+}
+
 `;
