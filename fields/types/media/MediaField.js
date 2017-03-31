@@ -39,12 +39,13 @@ module.exports = Field.create({//React.createClass({
 	},
 
 	renderValue () {
-
+		
+		const props = this.props;
 		
 		return (
 			<div>
 			
-				Not value
+				<ImgUploaderNoEdit path={this.props.path} many={props.many} model={props.model} value={props.value}/>
 				
 			</div>
 		);
