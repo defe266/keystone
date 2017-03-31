@@ -109,7 +109,7 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
     collection = _.filter(collection, (i) => props.hiddenFiles.indexOf(i.id) == -1);
     var selection = state.selection;
 
-    console.log(props.hiddenFiles)
+    //console.log(props.hiddenFiles)
 
 
     return (

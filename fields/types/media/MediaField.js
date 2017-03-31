@@ -2,6 +2,7 @@ import React from 'react';
 import Field from '../Field';
 
 import ImgUploader from './subApp';
+import ImgUploaderNoEdit from './noEdit';
 
 module.exports = Field.create({//React.createClass({
 
