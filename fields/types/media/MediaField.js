@@ -33,7 +33,7 @@ module.exports = Field.create({//React.createClass({
 			<div>
 
 				{/*<DailyRateApp parent={parent} rates={rates} path={this.props.path}/>*/}
-				<ImgUploader path={this.props.path} many={props.many} model={props.model} value={props.value} onChange={this.change}/>
+				<ImgUploader path={this.getInputName(this.props.path)} many={props.many} model={props.model} value={props.value} onChange={this.change}/>
 				
 			</div>
 		);
@@ -46,7 +46,7 @@ module.exports = Field.create({//React.createClass({
 		return (
 			<div>
 			
-				<ImgUploaderNoEdit path={this.props.path} many={props.many} model={props.model} value={props.value}/>
+				<ImgUploaderNoEdit path={this.getInputName(this.props.path)} many={props.many} model={props.model} value={props.value}/>
 				
 			</div>
 		);

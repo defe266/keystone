@@ -117,7 +117,6 @@ module.exports = Field.create({
 		})
 
 		
-		
 
 		return (
 			<div>
