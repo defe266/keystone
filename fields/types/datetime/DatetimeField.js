@@ -1,7 +1,6 @@
 import DateInput from '../../components/DateInput';
 import Field from '../Field';
-//import moment from 'moment';
-var moment = require('moment-timezone');
+import moment from 'moment-timezone';
 import React from 'react';
 import {
 	Button,
