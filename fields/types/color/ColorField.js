@@ -61,7 +61,12 @@ const ColorField = Field.create({
 		return (this.props.value) ? (
 			<span
 				className={className}
-				style={{ backgroundColor: this.props.value }}
+				style={{ 
+						backgroundColor: this.props.value,
+						display: 'block',
+						width: '20px',
+						height: '20px',
+					}}
 			/>
 		) : (
 			<span
