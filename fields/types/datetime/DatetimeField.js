@@ -1,6 +1,7 @@
 import DateInput from '../../components/DateInput';
 import Field from '../Field';
-import moment from 'moment';
+//import moment from 'moment';
+var moment = require('moment-timezone');
 import React from 'react';
 import {
 	Button,
@@ -29,6 +30,12 @@ module.exports = Field.create({
 	parseFormats: ['YYYY-MM-DD', 'YYYY-MM-DD h:m:s a', 'YYYY-MM-DD h:m a', 'YYYY-MM-DD H:m:s', 'YYYY-MM-DD H:m'],
 
 	getInitialState () {
+
+		if(this.props.timezone){
+
+			moment.tz.setDefault(this.props.timezone);
+		}
+
 		return {
 			dateValue: this.props.value && this.moment(this.props.value).format(this.dateInputFormat),
 			timeValue: this.props.value && this.moment(this.props.value).format(this.timeInputFormat),
