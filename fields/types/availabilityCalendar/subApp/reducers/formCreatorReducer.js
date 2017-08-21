@@ -1,23 +1,21 @@
 import moment from 'moment'
 
-export default (id) => {
+export default (id, initialState) => {
 
 
   var defaultState = {
 
     id: id,
-    data : {
-      unit:'',
-      name:'',
-      dateFrom: '',
-      dateTo: ''
-    },
+    data : {},
     show : false,
     loading: false,
     removeLoading: false,
     errors: [],
     editingItem: null
   }
+
+
+  defaultState = Object.assign({}, defaultState, initialState ? initialState : {})
 
   return (state = defaultState, action) => {
 

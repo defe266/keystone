@@ -30,6 +30,17 @@ export default (state = defaultState, action) => {
         error: true
       });
 
+
+    case 'UNITS_CREATE':
+
+      return Object.assign({}, state, {
+
+        collection : state.collection.concat(action.data) //[...state.collection, action.data]
+
+      });
+
+      
+
     default:
 
       return state

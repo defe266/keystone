@@ -59,11 +59,16 @@ module.exports = Field.create({//React.createClass({
 
 	renderField () {
 
+		if(this.props.model == 'Room'){
+
+			var hotel = this.props.values.hotel
+		}
+
 		return (
 
 			<div>
 
-				<CalendarApp model={this.props.model}/>
+				<CalendarApp model={this.props.model} hotel={hotel} hideName={this.props.hideName}/>
 				
 			</div>
 		);
@@ -75,7 +80,7 @@ module.exports = Field.create({//React.createClass({
 		return (
 			<div>
 			
-				<CalendarApp model={this.props.model}/>
+				<CalendarApp model={this.props.model} hideName={this.props.hideName}/>
 				
 			</div>
 		);

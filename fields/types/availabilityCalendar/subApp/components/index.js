@@ -21,6 +21,7 @@ import {
 import Calendar from './Calendar';
 import BlockDatesCreator from './BlockDatesCreator';
 import BlockDatesEditor from './BlockDatesEditor';
+import UnitsCreator from './UnitsCreator';
 
 //import ModalBlockDates from './ModalBlockDates';
 
@@ -40,6 +41,8 @@ var App = React.createClass({
 
     //# if room, load related units
     if(model == 'Room'){
+
+      this.room = _id;
 
       var filters = {
 
@@ -101,6 +104,14 @@ var App = React.createClass({
 
     this.props.dispatch({type: 'FORM_BLOCKEDDATES_CREATOR_RESET'});
     this.props.dispatch({type: 'FORM_BLOCKEDDATES_CREATOR_SHOW'});
+  },
+
+  showUnitsCreator (e){
+
+    if(e) e.preventDefault();
+
+    this.props.dispatch({type: 'FORM_UNITS_CREATOR_RESET'});
+    this.props.dispatch({type: 'FORM_UNITS_CREATOR_SHOW'});
   },
 
   prev: function(e){
@@ -174,9 +185,16 @@ var App = React.createClass({
           </div>
 
           <div className={css_header_right}>
+
+            {props.model == 'Room' ?
+
+              <Button color="primary" size="small" onClick={this.showUnitsCreator}>Crear unidades</Button>
+
+            :null}
+
             {props.units.collection.length > 0 ?
 
-              <Button color="primary" size="small" onClick={this.showBlockDatesCreator}>Bloquear fechas</Button>
+              <span>&nbsp;<Button color="primary" size="small" onClick={this.showBlockDatesCreator}>Bloquear fechas</Button></span>
 
             :null}
             
@@ -185,10 +203,17 @@ var App = React.createClass({
           <div style={{clear:'both'}}/>
         </div>
       
-        <Calendar/>
+        <Calendar hideName={props.hideName}/>
 
         <BlockDatesCreator/>
         <BlockDatesEditor/>
+
+        {props.model == 'Room' ?
+
+          <UnitsCreator hotel={props.hotel} room={this.room} size={props.units.collection.length}/>
+
+        :null}
+        
 {/*
         
 

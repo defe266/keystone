@@ -18,6 +18,7 @@ var Accomodation = React.createClass({
 
     var blockedDates = props.blockedDates;
     var bookings = props.bookings;
+    var isDisabled = this.props.item.fields.state == 'disabled';
 
     //debugger
 
@@ -48,6 +49,37 @@ var Accomodation = React.createClass({
       
     })
 
+    var css_label_disabled = css({
+
+      textDecoration: 'line-through',
+      opacity: '0.5'
+
+    })
+
+    
+    /*
+    var css_container_disabled = css();
+
+    if(this.props.item.fields.state == 'disabled'){
+
+        var css_container_disabled = css({
+          background: 'red',
+        })
+    }*/
+
+    var css_container_disabled = css({
+          background: 'rgba(0,0,0,0.3)',
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          textAlign: 'center',
+          color: '#fff',
+          lineHeight: '25px',
+          //zIndex: '10'
+        })
+
 //console.log(blockedDates)
 
 
@@ -57,7 +89,7 @@ var Accomodation = React.createClass({
 
         {props.showName ? 
 
-          <label className={css_label}>
+          <label className={css_label +' '+ (isDisabled ? css_label_disabled : '')}>
             <a title={props.item.id} href={"/keystone/units/"+props.item.id}>{props.item.name}</a>
           </label>
 
@@ -66,6 +98,12 @@ var Accomodation = React.createClass({
         <div className={css_base}>
 
           <Month cursor={props.cursor}/>
+
+          {isDisabled ? 
+
+            <div className={css_container_disabled}>Deshabilitada</div>
+
+          : null}
 
           {blockedDates.map((item) => {
 

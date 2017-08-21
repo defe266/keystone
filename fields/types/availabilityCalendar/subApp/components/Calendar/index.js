@@ -106,7 +106,7 @@ var Calendar = React.createClass({
 
 //{ console.log(i.unit,item.id); return i.unit == item.id)}
 
-    var showName = props.units.collection.length > 1;
+    var showName = !props.hideName;//props.units.collection.length > 1;
 
     return (
 
@@ -122,7 +122,7 @@ var Calendar = React.createClass({
         {notReady ? notReady : 
 
           <div>
-            {props.units.collection.map((item) => {
+            {_.sortBy(props.units.collection, (i) => new Date(i.fields.createdAt).getTime()).map((item) => {
 
               return <Accomodation key={item.id} 
                                     cursor={cursor} item={item} 
