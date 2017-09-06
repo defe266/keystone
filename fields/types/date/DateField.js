@@ -1,6 +1,7 @@
 import DateInput from '../../components/DateInput';
 import Field from '../Field';
-import moment from 'moment';
+//import moment from 'moment';
+import moment from 'moment-timezone';
 import React from 'react';
 import {
 	Button,
@@ -31,6 +32,14 @@ module.exports = Field.create({
 		value: React.PropTypes.string,
 	},
 
+	componentWillMount(){
+
+		if(this.props.timezone){
+
+			moment.tz.setDefault(this.props.timezone);
+		}
+	},
+
 	getDefaultProps () {
 		return {
 			formatString: DEFAULT_FORMAT_STRING,
@@ -38,6 +47,7 @@ module.exports = Field.create({
 		};
 	},
 	valueChanged ({ value }) {
+
 		this.props.onChange({
 			path: this.props.path,
 			value: value,
@@ -71,6 +81,8 @@ module.exports = Field.create({
 		value = this.props.value && value.isValid()
 			? value.format(this.props.inputFormat)
 			: this.props.value;
+
+
 		return (
 			<Group>
 				<Section grow>

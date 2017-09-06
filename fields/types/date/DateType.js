@@ -1,5 +1,6 @@
 var FieldType = require('../Type');
-var moment = require('moment');
+//var moment = require('moment');
+var moment = require('moment-timezone');
 var util = require('util');
 var utils = require('keystone-utils');
 var TextType = require('../text/TextType');
@@ -13,9 +14,10 @@ function date (list, path, options) {
 	this._nativeType = Date;
 	this._underscoreMethods = ['format', 'moment', 'parse'];
 	this._fixedSize = 'medium';
-	this._properties = ['formatString', 'yearRange', 'isUTC', 'inputFormat'];
+	this._properties = ['formatString', 'yearRange', 'isUTC', 'inputFormat', 'timezone'];
 	this.parseFormatString = options.inputFormat || 'YYYY-MM-DD';
 	this.formatString = (options.format === false) ? false : (options.format || 'Do MMM YYYY');
+	this.timezone = options.timezone ? options.timezone : null;
 
 	this.yearRange = options.yearRange;
 	this.isUTC = options.utc || false;
@@ -94,6 +96,14 @@ date.prototype.moment = function (item) {
  */
 date.prototype.parse = function (value, format, strict) {
 	var m = this.isUTC ? moment.utc : moment;
+	
+	// timezone supports
+	if(this.timezone){
+		moment.tz.setDefault(this.timezone);
+		//var m2 = moment.tz(value, format || this.parseFormatString, this.timezone)		
+	}
+
+
 	// TODO Check should maybe be if (typeof value === 'string')
 	// use the parseFormatString. Ever relevant?
 	if (typeof value === 'number' || value instanceof Date) {
