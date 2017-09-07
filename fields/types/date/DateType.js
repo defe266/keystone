@@ -100,7 +100,7 @@ date.prototype.parse = function (value, format, strict) {
 	// timezone supports
 	if(this.timezone){
 		moment.tz.setDefault(this.timezone);
-		//var m2 = moment.tz(value, format || this.parseFormatString, this.timezone)		
+		//var m2 = moment.tz(value, format || this.parseFormatString, this.timezone)	
 	}
 
 
