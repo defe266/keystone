@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
+//import moment from 'moment'
+import moment from 'moment-timezone';
 
 
 import Day from './Day'
@@ -17,6 +18,14 @@ var Month = React.createClass({
     error: React.PropTypes.bool.isRequired,
   },*/
 
+  componentWillMount () {
+
+    if(this.props.timezone){
+
+      moment.tz.setDefault(this.props.timezone);
+    }
+
+  },
 
   render: function () {
 

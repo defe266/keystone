@@ -68,7 +68,7 @@ module.exports = Field.create({//React.createClass({
 
 			<div>
 
-				<CalendarApp model={this.props.model} hotel={hotel} hideName={this.props.hideName}/>
+				<CalendarApp model={this.props.model} hotel={hotel} hideName={this.props.hideName} timezone={this.props.timezone}/>
 				
 			</div>
 		);
@@ -80,7 +80,7 @@ module.exports = Field.create({//React.createClass({
 		return (
 			<div>
 			
-				<CalendarApp model={this.props.model} hideName={this.props.hideName}/>
+				<CalendarApp model={this.props.model} hideName={this.props.hideName} timezone={this.props.timezone}/>
 				
 			</div>
 		);

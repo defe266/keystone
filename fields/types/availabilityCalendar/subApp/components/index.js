@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { css } from 'glamor';
-import moment from 'moment'
+//import moment from 'moment'
+import moment from 'moment-timezone';
 import xhr from 'xhr';
 import async from 'async';
 
@@ -27,6 +28,14 @@ import UnitsCreator from './UnitsCreator';
 
 
 var App = React.createClass({
+
+  componentWillMount(){
+
+    if(this.props.timezone){
+
+      moment.tz.setDefault(this.props.timezone);
+    }
+  },
  
   componentDidMount () {
 
@@ -203,7 +212,7 @@ var App = React.createClass({
           <div style={{clear:'both'}}/>
         </div>
       
-        <Calendar hideName={props.hideName}/>
+        <Calendar hideName={props.hideName} timezone={props.timezone}/>
 
         <BlockDatesCreator/>
         <BlockDatesEditor/>

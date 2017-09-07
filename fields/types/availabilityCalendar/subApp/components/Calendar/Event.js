@@ -1,9 +1,19 @@
 import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
+//import moment from 'moment'
+import moment from 'moment-timezone';
 import { css } from 'glamor'
 
 
 var Event = React.createClass({
+
+   componentWillMount () {
+
+    if(this.props.timezone){
+
+      moment.tz.setDefault(this.props.timezone);
+    }
+
+  },
 
   render: function () {
 

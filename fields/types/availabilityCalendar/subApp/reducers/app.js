@@ -1,9 +1,7 @@
-import moment from 'moment'
-
 export default (state = {
  
 	error: false,
-	cursor: moment(),
+	cursor: null,
 	loading: false,
 
 }, action) => {

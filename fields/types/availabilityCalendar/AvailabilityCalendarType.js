@@ -10,13 +10,14 @@ var utils = require('keystone-utils');
 function availabilityCalendar (list, path, options) {
 	this.options = options;
 	this._nativeType = String;
-	this._properties = ['model','hideName'];
+	this._properties = ['model','hideName', 'timezone'];
 	//this._underscoreMethods = ['crop'];
 	
 	availabilityCalendar.super_.call(this, list, path, options);
 
 	this.model = this.list.key;
 	this.hideName = options.hideName;
+	this.timezone = options.timezone ? options.timezone : null;
 }
 availabilityCalendar.properName = 'AvailabilityCalendar';
 util.inherits(availabilityCalendar, FieldType);

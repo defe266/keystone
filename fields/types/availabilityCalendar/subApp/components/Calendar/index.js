@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
+//import moment from 'moment'
+import moment from 'moment-timezone';
 import xhr from 'xhr';
 import async from 'async';
 import _ from 'lodash';
@@ -31,6 +32,15 @@ var Calendar = React.createClass({
     loading: React.PropTypes.bool.isRequired,
     error: React.PropTypes.bool.isRequired,
   },*/
+
+  componentWillMount () {
+
+    if(this.props.timezone){
+
+      moment.tz.setDefault(this.props.timezone);
+    }
+
+  },
 
   componentDidMount () {
 
@@ -126,6 +136,7 @@ var Calendar = React.createClass({
 
               return <Accomodation key={item.id} 
                                     cursor={cursor} item={item} 
+                                    timezone={props.timezone}
                                     blockedDates={_.filter(blockedDates.collection, (i) => i.fields.unit == item.id)} 
                                     bookings={_.filter(bookings.collection, (i) => i.fields.unit == item.id)} 
                                     onSelectBlockedDates={this.selectBlockedDates} showName={showName}/>

@@ -97,7 +97,7 @@ var Accomodation = React.createClass({
 
         <div className={css_base}>
 
-          <Month cursor={props.cursor}/>
+          <Month cursor={props.cursor} timezone={props.timezone}/>
 
           {isDisabled ? 
 
@@ -107,13 +107,13 @@ var Accomodation = React.createClass({
 
           {blockedDates.map((item) => {
 
-            return <Event key={item.id} cursor={props.cursor} {...item} color="#0076D1" onClick={() => props.onSelectBlockedDates(item)}/>
+            return <Event key={item.id} cursor={props.cursor} timezone={props.timezone} {...item} color="#0076D1" onClick={() => props.onSelectBlockedDates(item)}/>
 
           })}
 
           {bookings.map((item) => {
 
-            return <Event key={item.id} cursor={props.cursor} {...item} color="#1ED45F"/>
+            return <Event key={item.id} cursor={props.cursor} timezone={props.timezone} {...item} color="#1ED45F"/>
 
           })}
 
