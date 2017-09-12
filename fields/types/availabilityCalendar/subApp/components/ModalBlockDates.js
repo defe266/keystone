@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash'
 import { css } from 'glamor'
 
 //import Field from '../Field';
@@ -44,9 +45,12 @@ module.exports = React.createClass({//React.createClass({
 
 		if(units){
 
-			var units_options = []//{value: '', label:'Sin definir'}
+			var units_options = [{value: '*', label:'Todos'}]//{value: '', label:'Sin definir'}
 
-			units_options = units_options.concat(units.collection.map((i) => { return {value: i.id, label:i.name}}))	
+			var unitsSorted = _.sortBy(units.collection, (i) => new Date(i.fields.createdAt).getTime());
+
+			units_options = units_options.concat(unitsSorted.map((i) => { return {value: i.id, label:i.name}}))	
+
 		}
 
 

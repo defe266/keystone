@@ -124,8 +124,10 @@ var Form = React.createClass({//React.createClass({
 
 	    	dispatch({type: 'FORM_'+this.id+'_LOADING_END'});
 
-	    	alert('Se ha producido un error')
-	    	location.reload();
+	    	console.error(errors)
+
+	    	alert('Se ha producido un error. Recargue la página.')
+	    	//location.reload();
 
 
 	    })

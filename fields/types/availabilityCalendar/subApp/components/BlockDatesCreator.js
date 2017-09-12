@@ -19,6 +19,46 @@ import ModalBlockDates from './ModalBlockDates';
 var id = 'BLOCKEDDATES_CREATOR';
 
 
+
+function xhr_promise(data){
+
+	return new Promise((resolve, reject) => {
+
+		xhr({
+
+	      url: Keystone.adminPath + '/api/blocked-dates/create',
+	      responseType: 'json',
+	      method: 'post',
+	      json:true,
+	      body: data
+
+	    }, (err, resp, data) => {
+
+	    	var errors = extractErrors(err, resp, data);
+
+	    	resolve({
+	    		errors: errors,
+	    		data: data
+	    	})
+
+/*
+	    	var errors = extractErrors(err, resp, data);
+
+	    	if(errors){
+
+	    		reject(errors)
+
+	    	}else{
+
+	    		resolve(data)
+	    	}
+	    	*/
+	    });
+	})
+
+	
+}
+
 var Form = React.createClass({//React.createClass({
 
 	componentWillMount() {
@@ -35,7 +75,7 @@ var Form = React.createClass({//React.createClass({
 		if(!props.show && nextProps.show){
 
 			this.props.dispatch({type: 'FORM_'+this.id+'_UPDATE', data : { 
-				unit : props.units.collection[0].id
+				unit : '*'//props.units.collection[0].id
 			}});	
 		}
 	},
@@ -54,8 +94,113 @@ var Form = React.createClass({//React.createClass({
 
 	save (e) {
 
+		
+		
 		var dispatch = this.props.dispatch;
 		var data = Object.assign({},this.props.data);
+		var dataArray = [];
+
+		if(data.unit == '*'){
+
+			_.forEach(this.props.units.collection, (unit) => {
+
+				dataArray.push({
+
+					name: data.name,
+		    		dateFrom : moment(data.dateFrom, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+		    		dateTo: moment(data.dateTo, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+		    		hotel : unit.fields.hotel,
+		    		room : unit.fields.room,
+		    		unit: unit.id
+		    	})
+					
+			})
+
+		}else{
+
+			var unit = _.find(this.props.units.collection, (i) => i.id == data.unit);
+
+			dataArray.push({
+
+				name: data.name,
+	    		dateFrom : moment(data.dateFrom, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+	    		dateTo: moment(data.dateTo, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+	    		hotel : unit.fields.hotel,
+	    		room : unit.fields.room,
+	    		unit: unit.id
+	    	})
+		}
+
+		dispatch({type: 'FORM_'+this.id+'_LOADING_START'});
+
+
+
+	    Promise.all(
+
+	    	dataArray.map((i) => xhr_promise(i))
+
+	    ).then((results) => {
+
+	    	dispatch({type: 'FORM_'+this.id+'_LOADING_END'});
+
+			var successes = 0;
+			var lastErrors = [];
+
+
+			_.forEach(results, (data) => {
+
+				if(!data.errors){
+
+					successes++;
+
+					dispatch({type: 'BLOCKEDDATES_CREATE', data: data.data})
+
+				}else{
+
+					lastErrors = data.errors;
+				}
+
+			});
+
+			//# si fallan todas, todas tendrán un error parecido
+			if(successes == 0){
+
+				dispatch({type: 'FORM_'+this.id+'_ERRORS', data: lastErrors});
+
+			}else{
+
+				//si fallan algunas, informamos de la situación
+				if(successes != dataArray.length){
+
+					dispatch({type: 'FORM_'+this.id+'_ERRORS', data: ['Sólo se han podido crear '+successes+' de '+dataArray.length]});
+
+				}else{
+
+					//# si todo se creó -> cerramos
+					dispatch({type: 'FORM_'+this.id+'_HIDE'});
+				}
+			}
+
+
+			
+
+	    }).catch((errors) => {
+
+	    	dispatch({type: 'FORM_'+this.id+'_LOADING_END'});
+
+	    	console.error(errors)
+
+	    	dispatch({type: 'FORM_'+this.id+'_ERRORS', data: ['Error en el bloqueo múltiple. Recargue la página.']});			
+
+	    	//alert('Se ha producido un error')
+	    	//location.reload();
+
+	    	//dispatch({type: 'FORM_'+this.id+'_ERRORS', data: errors});
+
+
+	    })
+
+		/*
 		var unit = _.find(this.props.units.collection, (i) => i.id == data.unit);
 
 	    data.dateFrom = moment(data.dateFrom, 'DD/MM/YYYY').format('YYYY-MM-DD');
@@ -85,7 +230,8 @@ var Form = React.createClass({//React.createClass({
 			dispatch({type: 'FORM_'+this.id+'_HIDE'});
 			
 
-	    });
+	    });*/
+
 	},
 
 	render () {
