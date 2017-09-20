@@ -22,7 +22,7 @@ function variationRate (list, path, options) {
 	variationRate.super_.call(this, list, path, options);
 
 }
-variationRate.properName = 'variationRate';
+variationRate.properName = 'VariationRate';
 util.inherits(variationRate, FieldType);
 
 /**
