@@ -23,7 +23,7 @@ export default function (){ //cursor
     var dateEnd = moment(cursor).endOf('month');//.add(1, 'month');//# add fix: rango de 3 meses para ver 1
 
 
-      var filters = {
+    var filters = {
 
       "unit":{"value": units.map((i) => i.id)},//"589b4cee7ea37948a916c6cf"
 
@@ -33,7 +33,15 @@ export default function (){ //cursor
 
     }
 
+    var filters_bookings = Object.assign({}, filters, {
+
+      "status": {"value": "active"}
+
+    })
+
     var query = '?filters='+ JSON.stringify(filters)//.replace(new RegExp('"', 'g'), '')//'{unit:589b4cee7ea37948a916c6cf}'//encodeURIComponent(JSON.stringify(filters));
+    var query_bookings = '?filters='+ JSON.stringify(filters_bookings)
+
 
     //#Load BlockedDates
     dispatch({type : 'BLOCKEDDATES_FETCH_REQUEST'});
@@ -56,7 +64,7 @@ export default function (){ //cursor
 
     xhr({
 
-      url: Keystone.adminPath + '/api/bookings'+query,//post-categories
+      url: Keystone.adminPath + '/api/bookings'+query_bookings,//post-categories
       responseType: 'json',
 
     }, (err, resp, data) => {

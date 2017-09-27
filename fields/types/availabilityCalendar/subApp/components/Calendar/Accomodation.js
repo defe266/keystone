@@ -113,7 +113,7 @@ var Accomodation = React.createClass({
 
           {bookings.map((item) => {
 
-            return <Event key={item.id} cursor={props.cursor} timezone={props.timezone} {...item} color="#1ED45F"/>
+            return <Event key={item.id} href={Keystone.adminPath+'/bookings/'+item.id} cursor={props.cursor} timezone={props.timezone} {...item} color="#1ED45F"/>
 
           })}
 

@@ -58,11 +58,24 @@ var Event = React.createClass({
 
       <div className={css_base} onClick={props.onClick}>
 
-        <div className={css_inside}>
+        
+            {props.href ? 
 
-            {props.name}
+                <a href={props.href} target="_blank">
 
-        </div>
+                    <div className={css_inside}>
+                        {props.name}
+                    </div>
+                
+                </a>
+
+            : 
+                <div className={css_inside}>
+                    {props.name}
+                </div>
+            }
+
+        
 
       </div>
     )
