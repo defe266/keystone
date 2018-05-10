@@ -1,0 +1,19 @@
+
+/*.DraftEditor-editorContainer div[draggable] */
+
+
+
+.draft-Post img,
+.draft-Post a{
+	pointer-events: none;
+}
+
+.DraftEditor-editorContainer div[draggable] .draft-Post .PostItem__header,
+.DraftEditor-editorContainer div[draggable] .draft-Post .PostItem__body,
+.DraftEditor-editorContainer div[draggable] .draft-Post .PostItem__footer{
+	cursor: move;
+}
+
+.draft-Post .UserItem__name__container{
+	max-width: 100%;
+}

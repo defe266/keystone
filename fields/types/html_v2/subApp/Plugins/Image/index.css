@@ -1,0 +1,18 @@
+.draft-Image img{
+	width: 100%;
+	height: auto;
+}
+
+.draft-Image .progress{
+	margin: 0;
+	height: 5px;
+	border-radius: 0 0 2px 2px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+}
+
+.draft-Image .progress-bar{
+	background-color: #6CCE46;
+}

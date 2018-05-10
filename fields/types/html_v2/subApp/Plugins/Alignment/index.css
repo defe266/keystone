@@ -1,0 +1,93 @@
+/*General*/
+
+.draftjs__block__alignment{
+  z-index: 10;
+}
+
+.draftjs__block__alignment--center{
+  clear: both;
+}
+
+.draftjs__block__alignment--left{
+  margin-right: 16px;
+}
+
+.draftjs__block__alignment--right{
+  margin-left: 16px;
+}
+
+/*tool*/
+
+.alignmentTool {
+  left: 50%;
+  transform: translate(-50%) scale(0);
+  position: absolute;
+  /*border: 1px solid #ddd;*/
+  background: #7F8095;
+  border-radius: 2px;
+  box-shadow: 0px 1px 3px 0px rgba(220,220,220,1);
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.alignmentTool:after, .alignmentTool:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.alignmentTool:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #7F8095;
+  border-width: 4px;
+  margin-left: -4px;
+}
+.alignmentTool:before {
+  border-color: rgba(221, 221, 221, 0);
+  border-top-color:#7F8095;
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+
+
+/*Buttons*/
+
+
+.alignmentTool .buttonWrapper {
+  display: inline-block;
+}
+
+.alignmentTool .button {
+  background: #7F8095;
+  color: #888;
+  font-size: 18px;
+  border: 0;
+  padding-top: 5px;
+  vertical-align: bottom;
+  height: 34px;
+  width: 36px;
+}
+
+.alignmentTool .button svg {
+  fill: #fff;
+}
+
+.alignmentTool .button:hover, .button:focus {
+  background: #717286;
+  outline: 0; /* reset for :focus */
+}
+
+.alignmentTool .active {
+  background: #6C6E7D;
+  color: #fff;
+}
+
+.alignmentTool .active svg {
+  fill: #fff;
+}

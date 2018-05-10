@@ -1,0 +1,59 @@
+.DnDHandler__handle{
+
+    background: #29A5DE;
+    position: absolute;
+    top: -3px;
+    left: -28px;
+    cursor: move;
+    color: #fff;
+    height: calc(100% + 6px);
+    text-align: center;
+    z-index: 123123213213;
+    width: 18px;
+    border-radius: 4px 0 0 4px;
+    text-align: right;
+    opacity: 0;
+    transition: opacity .2s;
+
+}
+
+.DnDHandler:after{
+    position: absolute;
+    content: "";
+    width: 10px;
+    height:  calc(100% + 6px);
+    background: #29A5DE;
+    top: -3px;
+    left: -10px;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.DnDHandler__icon{
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    margin-top: -16px;
+}
+
+.DnDHandler .Icon {
+    margin-right: 1px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.DnDHandler .Icon:last-child{
+	margin: 0;
+}
+
+
+.public-DraftStyleDefault-block figure:hover .DnDHandler__handle,
+.DraftEditor-editorContainer figure:hover .DnDHandler__handle{
+	opacity: 1;
+}
+
+
+.public-DraftStyleDefault-block figure:hover .DnDHandler:after,
+.DraftEditor-editorContainer figure:hover .DnDHandler:after{
+    opacity: 1;
+}

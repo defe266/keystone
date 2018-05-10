@@ -1,0 +1,21 @@
+.draft-HR__container{
+	clear:both;
+	position: relative;
+}
+
+.draft-HR{
+	padding: 10px 0;
+	clear:both;
+}
+
+.draft-HR__content{
+	background: #ddd;
+	height: 2px;
+	width: 100%;
+	min-width: 400px;
+}
+
+
+.DraftEditor-editorContainer div[draggable] .draft-HR{
+	cursor: move;
+}

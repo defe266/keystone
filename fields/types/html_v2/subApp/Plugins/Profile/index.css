@@ -1,0 +1,15 @@
+
+.draft-Profile img,
+.draft-Profile a{
+	pointer-events: none;
+}
+
+
+.draft-Profile .UserItem__name__container{
+	max-width: 100%;
+}
+
+.draft-Profile .UserItem--bordered{
+
+	margin-bottom: 0px;
+}

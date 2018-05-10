@@ -1,0 +1,15 @@
+
+.LinkButton__LinkModal .input-group-btn .btn{
+	height: 34px
+}
+
+
+.LinkButton__LinkModal__label{
+	text-transform: uppercase;
+	color: #bbb;
+	margin-bottom: 16px;
+}
+
+.LinkButton__LinkModal .modal-footer{
+	text-align: center;
+}
