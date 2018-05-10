@@ -34,6 +34,7 @@
     "connect-flash": "0.1.1",
     "cookie-parser": "1.4.3",
     "draft-js": "0.10.5",
+    "draft-js-export-html" : "1.2.0",
     "draft-js-buttons": "2.0.0-beta9",
     "draft-js-plugins-editor": "2.0.0-beta11",
     "draft-js-focus-plugin": "2.0.0-beta10",

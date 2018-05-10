@@ -15,12 +15,24 @@ module.exports = Field.create({
 		type: 'Html_v2',
 	},
 
+	change: function  (value) {
+
+		this.props.onChange({
+			path: this.props.path,
+			value: value,
+		});
+	},
 
 	renderField () {
 	
+		const props = this.props;
+
 		return (
 			
-			<Editor/>
+
+			<div>
+				<Editor name={this.getInputName(this.props.path)} defaultValue={props.value} onChange={this.change}/>
+			</div>
 		);
 	},
 

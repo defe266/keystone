@@ -9,11 +9,15 @@ var util = require('util');
  * @api public
  */
 function html_v2 (list, path, options) {
+	//this._nativeType = String;
+	//this._defaultSize = 'full';
+	//this.wysiwyg = options.wysiwyg || false;
+	//this.height = options.height || 180;
+	//this._properties = ['wysiwyg', 'height'];
+
 	this._nativeType = String;
-	this._defaultSize = 'full';
-	this.wysiwyg = options.wysiwyg || false;
-	this.height = options.height || 180;
-	this._properties = ['wysiwyg', 'height'];
+	this.options = options;
+	this._properties = [];
 	html_v2.super_.call(this, list, path, options);
 }
 html_v2.properName = 'Html_v2';

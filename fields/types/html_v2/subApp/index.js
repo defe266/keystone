@@ -1,5 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
+import _ from 'lodash'
+import {stateToHTML} from 'draft-js-export-html';
 //import $ from 'jquery';
 
 
@@ -44,7 +46,7 @@ import {
 } from 'draft-js-buttons-plugin'
 */
 
-import {EditorState} from 'draft-js';
+import {EditorState, ContentState, convertFromHTML} from 'draft-js';
 import Editor, { composeDecorators } from 'draft-js-plugins-editor';
 //import Editor from 'draft-js-plugins-editor';
 
@@ -245,21 +247,89 @@ export default React.createClass({
 
   getInitialState: function () {
 
-    return {
-      value: EditorState.createEmpty()
+
+
+    if(this.props.defaultValue){
+
+      const blocksFromHTML = convertFromHTML(this.props.defaultValue);
+      const state = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+
+      var value = EditorState.createWithContent(state);
+      var valueHTML = this.props.defaultValue;
+
+    }else{
+
+      var value = EditorState.createEmpty();
+      var valueHTML = '';
     }
+
+    return {
+
+      value: value,
+      valueHTML: valueHTML,
+      view: 'render'
+    }
+
+  },
+
+  componentWillMount: function(){
+
+      this.changeHTML_debounced = _.debounce(this.changeHTML, 200);
+      this.changeViewFromCode_debounced = _.debounce(this.changeViewFromCode, 200);
+      
   },
 
   change: function (editorState) {
 
-    this.setState({value : editorState})
+    this.setState({value : editorState});
+
+    this.changeHTML_debounced(editorState);
+  },
+
+  changeHTML: function(editorState){
+
+    var string = stateToHTML(editorState.getCurrentContent())
+
+    this.setState({valueHTML : string});
+
+    this.props.onChange(string);
+  },
+
+  changeFromCode: function(e){
+
+    var string = e.target.value;
+
+    this.setState({valueHTML : string});
+
+    this.changeViewFromCode_debounced(string);
+  },
+
+  changeViewFromCode: function(htmlValue){
+
+    const blocksFromHTML = convertFromHTML(htmlValue);
+    const state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+
+    var value = EditorState.createWithContent(state);
+
+    this.change(value);
+  },
+
+  changeTab: function(view){
+
+    this.setState({view});
   },
 
   render: function() {
 
 
     const props = this.props
-
+    const view = this.state.view
     //console.log("2",props.data)
 
     const classes = classnames({
@@ -268,7 +338,6 @@ export default React.createClass({
       "DraftCanvas__readOnly": props.readOnly,
 
     });
-
 
 
     return (
@@ -281,37 +350,50 @@ export default React.createClass({
         <button onClick={::this.addHR}>Add HR</button>
         */}
 
-        <Editor
-          ref={(element) => { this.editor = element; }}
-          editorState={this.state.value}
-          onChange={this.change}
-          placeholder="Write here..."
-          plugins={plugins} 
-          readOnly={props.readOnly}/>
+        <div className={'DraftCanvas__tab '+(view == 'render' ? 'DraftCanvas__tab--selected' : '')} onClick={(e) => this.changeTab('render')}>render</div>
+        <div className={'DraftCanvas__tab '+(view == 'code' ? 'DraftCanvas__tab--selected' : '')} onClick={(e) => this.changeTab('code')}>code</div>
+
+        <div className={'DraftCanvas__panel '+(view == 'render' ? 'DraftCanvas__panel--selected' : '')}>
+          <Editor
+            ref={(element) => { this.editor = element; }}
+            editorState={this.state.value}
+            onChange={this.change}
+            placeholder="Write here..."
+            plugins={plugins} 
+            readOnly={props.readOnly}/>
 
 
-          {!props.readOnly ? 
+            {!props.readOnly ? 
 
 
-            <div>
-              <div className="clearfix"/>
+              <div>
+                <div className="clearfix"/>
 
-              {/*<div className="DraftCanvas__AlignmentTool__container">
-                <AlignmentTool/>
-              </div>*/}
+                {/*<div className="DraftCanvas__AlignmentTool__container">
+                  <AlignmentTool/>
+                </div>*/}
 
-              <div className="DraftCanvas__InlineToolbar__container">
-                <InlineToolbar />
+                <div className="DraftCanvas__InlineToolbar__container">
+                  <InlineToolbar />
+                </div>
+
+                
+                <div className="DraftCanvas__SideToolbar__container">
+                  <SideToolbar />
+                </div>
+
               </div>
 
-              
-              <div className="DraftCanvas__SideToolbar__container">
-                <SideToolbar />
-              </div>
+            :null}
+        </div>
 
-            </div>
+        <div className={'DraftCanvas__panel '+(view == 'code' ? 'DraftCanvas__panel--selected' : '')}>
+          <textarea className="DraftCanvas__code" type="text" value={this.state.valueHTML} name={props.name} onChange={this.changeFromCode}/>
+        </div>
 
-          :null}
+        
+
+        
 
 
           <style>{require('./styles/Draft.js').default}</style>

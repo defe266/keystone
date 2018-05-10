@@ -56,43 +56,6 @@ module.exports = Field.create({
 
 		var langs = this.props.langs;
 
-		var css_base = css({ 
-
-		  color: 'red',
-		  ':hover': {
-		    color: 'pink'
-		  },
-		  /*'@media(min-width: 800px)': {
-		    color: 'green',
-		    ':hover': {
-		      color: 'yellow'
-		    }
-		  }*/
-		})
-
-		/*var css_base = css({ 
-
-		  color: 'red',
-		  ':hover': {
-		    color: 'pink'
-		  },
-		  '@media(min-width: 800px)': {
-		    color: 'green',
-		    ':hover': {
-		      color: 'yellow'
-		    }
-		  }
-		})*/
-
-		/*
-		let mono = css({
-		  'color': 'red'
-		})
-
-		let bolder = css({
-		  'fontWeight': 'bolder'
-		})
-		{...css(bolder)}*/
 
 		let css_tab  = css({
 		  //'fontWeight': 'bolder',

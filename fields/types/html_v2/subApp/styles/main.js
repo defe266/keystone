@@ -55,6 +55,47 @@ export default `
   line-height: 1;
 }
 
+.DraftCanvas__tab{
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.DraftCanvas__tab--selected{
+  color: #148EE8;
+}
+
+.DraftCanvas__panel{
+  display: none;
+}
+
+.DraftCanvas__panel--selected{
+  display: block;
+}
+
+.DraftCanvas__code{
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-color: #ccc;
+    border-radius: 0.3rem;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    color: inherit;
+    background-color: white;
+    height: 2.4em;
+    line-height: 2.3em;
+    padding: 0 .75em;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    width: 100%;
+    appearance: none;
+    background-image: none;
+    display: block;
+    height:300px;
+}
+
+/*
 
 .DraftEditor-editorContainer figure div[class^=draftJsEmojiPlugin__focused__],
 .DraftEditor-editorContainer figure > div:hover{
@@ -88,12 +129,6 @@ export default `
   .DraftCanvas a[href]:after {
     content: none !important;
   }
-
-  /*
-  * {
-    -webkit-print-color-adjust: exact !important;
-  }*/
-
   *,
   *:before,
   *:after {
@@ -102,4 +137,6 @@ export default `
   }
 
 }
+
+*/
 `;
