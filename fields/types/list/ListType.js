@@ -178,6 +178,10 @@ list.prototype.getData = function (item) {
  * If the data object does not contain the value, then the value is set to empty array.
  */
 list.prototype.updateItem = function (item, data, files, callback) {
+
+
+	console.log("updateItem")
+
 	if (typeof files === 'function') {
 		callback = files;
 		files = {};
@@ -185,12 +189,17 @@ list.prototype.updateItem = function (item, data, files, callback) {
 
 	var field = this;
 	var values = this.getValueFromData(data);
+
+
+	console.log("values ",values)
+
 	// Don't update the value when it is undefined
-	if (values === undefined) {
+	//#! FIX: null and empty values dont serialice using formData -> accept undifened as empty value
+	/*if (values === undefined) {
 		return utils.defer(callback);
-	}
+	}*/
 	// Reset the value when null or an empty string is provided
-	if (values === null || values === '') {
+	if (values === null || values === '' || values === undefined) {
 		values = [];
 	}
 	// Wrap non-array values in an array
