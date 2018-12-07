@@ -1,7 +1,7 @@
 var React = require('react');
 var _ = require('lodash');
-var HTML5Backend = require('react-dnd-html5-backend');
-var DragDropContext = require('react-dnd').DragDropContext;
+//var HTML5Backend = require('react-dnd-html5-backend');
+//var DragDropContext = require('react-dnd').DragDropContext;
 
 var UploaderBlock = require('./UploaderBlock.js');
 var ButtonFileInput = require('./ButtonFileInput.js');
@@ -269,7 +269,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 	}
 });
 
-var ImgUploaderMultiple = DragDropContext(HTML5Backend)(ImgUploaderMultiple);
+//var ImgUploaderMultiple = DragDropContext(HTML5Backend)(ImgUploaderMultiple);
 
 
 

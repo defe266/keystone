@@ -1,6 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import assign from 'object-assign';
+
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
 import {
 	Form,
 	FormField,
@@ -423,5 +428,9 @@ const styles = {
 		float: 'right',
 	},
 };
+
+
+EditForm = DragDropContext(HTML5Backend)(EditForm);
+
 
 module.exports = EditForm;

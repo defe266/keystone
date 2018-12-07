@@ -1,7 +1,7 @@
 var React = require('react');
 var classNames = require('classnames');
 var DropTarget = require('react-dnd').DropTarget;
-var DragDropContext = require('react-dnd').DragDropContext;
+//var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd-html5-backend');//react-dnd/modules/backends/HTML5
 //var _ = require('underscore');
 
@@ -138,4 +138,6 @@ var uploaderBlock = React.createClass({	//monitor.getDropResult()
 
 uploaderBlock = DropTarget(HTML5Backend.NativeTypes.FILE, fileTarget, collect)(uploaderBlock);
 
-module.exports = DragDropContext(HTML5Backend)(uploaderBlock);
+//uploaderBlock = DragDropContext(HTML5Backend)(uploaderBlock);
+
+module.exports = uploaderBlock;
