@@ -180,7 +180,7 @@ list.prototype.getData = function (item) {
 list.prototype.updateItem = function (item, data, files, callback) {
 
 
-	console.log("updateItem")
+	//console.log("updateItem")
 
 	if (typeof files === 'function') {
 		callback = files;
@@ -191,7 +191,7 @@ list.prototype.updateItem = function (item, data, files, callback) {
 	var values = this.getValueFromData(data);
 
 
-	console.log("values ",values)
+	//console.log("values ",values)
 
 	// Don't update the value when it is undefined
 	//#! FIX: null and empty values dont serialice using formData -> accept undifened as empty value
