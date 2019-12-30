@@ -62,7 +62,7 @@ var File = React.createClass({  //monitor.getDropResult()
     var state = this.state;
     var props = this.props;
 
-    var url = "/uploads/"+props.id+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
+    var url = "/uploads/"+props.id//+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
 
     //console.log('this',this)
 

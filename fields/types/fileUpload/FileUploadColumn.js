@@ -19,7 +19,7 @@ var LocalFileColumn = React.createClass({
 				<ItemsTableValue>
 
 					<div style={{
-						"backgroundImage" : "url("+href+"/:/rs=w:32,h:32,m/cr=w:32,h:32"+")",
+						"backgroundImage" : "url("+href+")",//+"/:/rs=w:32,h:32,m/cr=w:32,h:32"
 						backgroundSize : 'cover',
 						backgroundRepeat : 'no-repeat',
 						backgroundPosition : 'center',

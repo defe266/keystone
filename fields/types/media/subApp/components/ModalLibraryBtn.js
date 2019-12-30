@@ -131,7 +131,7 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
                       
                       {collection.map((props) => {
 
-                        var url = "/uploads/"+props.id+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
+                        var url = "/uploads/"+props.id//+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
 
                         var selected = selection.indexOf(props.id) != -1;
 

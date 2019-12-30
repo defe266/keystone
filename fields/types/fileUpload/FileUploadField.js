@@ -154,7 +154,7 @@ module.exports = Field.create({
 	renderFileNameAndChangeMessage () {
 
 		var href = this.props.value ? this.props.value.url : undefined;
-		href = this.state.userSelectedFile && this.state.userSelectedFile_base64 ? this.state.userSelectedFile_base64 : href+'/:/rs=w:150,h:150,m/cr=w:150,h:150';
+		href = this.state.userSelectedFile && this.state.userSelectedFile_base64 ? this.state.userSelectedFile_base64 : href;//+'/:/rs=w:150,h:150,m/cr=w:150,h:150'
 
 		
 

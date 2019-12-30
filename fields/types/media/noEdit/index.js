@@ -23,7 +23,7 @@ module.exports = function(props){
     _.each(files, function(id, index){
 
 
-    	var url = "/uploads/"+id+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
+    	var url = "/uploads/"+id//+'/:/rs=w:200,h:200,m/cr=w:200,h:200'
 
       FILES_ELM.push(
 
