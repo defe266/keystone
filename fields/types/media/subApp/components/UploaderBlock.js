@@ -3,7 +3,7 @@ var classNames = require('classnames');
 var DropTarget = require('react-dnd').DropTarget;
 //var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd-html5-backend');//react-dnd/modules/backends/HTML5
-//var _ = require('underscore');
+//var _ = require('lodash');
 
 /*
 var Types = {
