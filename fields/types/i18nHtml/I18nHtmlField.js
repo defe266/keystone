@@ -11,6 +11,7 @@ import { css } from 'glamor';
 import tinymce from 'tinymce';
 //import { FormInput } from '../../../admin/client/App/elemental';
 import HtmlField from '../html/HtmlField.js';
+import { FormNote } from '../../../admin/client/App/elemental';
 //import tinymce from 'tinymce';
 //import { FormInput } from '../../../admin/client/App/elemental';
 //import evalDependsOn from '../../utils/evalDependsOn';
@@ -52,6 +53,11 @@ module.exports = Field.create({
 		
 	},
 
+	renderNote () {
+		if (!this.props.note) return null;
+		return <FormNote html={this.props.note}/>;
+	},
+
 	//+'.'+event.target.name
 
 	renderField () {
@@ -62,6 +68,7 @@ module.exports = Field.create({
 		var props2 = Object.assign({}, this.props);
 
 		delete props2.dependsOn;
+		delete props2.note;
 		
 
 		var css_base = css({ 
