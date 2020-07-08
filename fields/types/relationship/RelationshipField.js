@@ -205,6 +205,16 @@ module.exports = Field.create({
 					value={this.state.value}
 					valueKey="id"
 				/>
+
+				{/*Fix extrange space... maybe in new chrome versions*/}
+				<style>{`
+
+					.Select .Select-aria-only{
+						display:block
+					}
+
+				`}</style>
+				
 			</div>
 		);
 	},
