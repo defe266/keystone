@@ -53,7 +53,7 @@ ListItemHolder = DropTarget('LIST_ITEM',
 
     var item = monitor.getItem();
 
-    return (props.index != item.index) && (props.index != item.index+1); //# solo interacciona con items en otras posiciones (y que no sean el siguiente)
+    return (props.index != item.index)// && (props.index != item.index+1); //# solo interacciona con items en otras posiciones (y que no sean el siguiente)
   },
 
   

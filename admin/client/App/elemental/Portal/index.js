@@ -50,4 +50,5 @@ export default class Portal extends Component {
 
 Portal.contextTypes = {
 	onClose: PropTypes.func,
+	dragDropManager: PropTypes.object,
 };
