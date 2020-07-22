@@ -77,11 +77,14 @@ module.exports = Field.create({
 		);
 	},
 	renderField () {
-		let value = this.moment(this.props.value);
+
+		//#! convert in case of string format number stored
+		let value = typeof this.props.value == 'number'  ? (this.props.value).toString() : this.props.value 
+
+		value = this.props.stringStoreFormat ? this.moment(value, this.props.stringStoreFormat) : this.moment(value); 
 		value = this.props.value && value.isValid()
 			? value.format(this.props.inputFormat)
 			: this.props.value;
-
 
 		return (
 			<Group>
