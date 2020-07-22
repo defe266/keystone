@@ -109,7 +109,7 @@ list.prototype.addToSchema = function (schema) {
 	if (this.options.decorateSchema) {
 		this.options.decorateSchema(itemSchema);
 	}
-
+	//console.log(">>>>>>>>>>>>>>>>>",itemSchema)
 	schema.add(this._path.addTo({}, [itemSchema]));
 	this.bindUnderscoreMethods();
 };
