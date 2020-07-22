@@ -26,6 +26,16 @@ var FieldElm = Field.create({
 		path: React.PropTypes.string.isRequired,
 		value: React.PropTypes.array,
 	},
+
+	change: function  (value) {
+
+		this.props.onChange({
+			path: this.props.path,
+			value: value,
+		});
+
+
+	},
 	
 	renderUI () {
 		const { label, value } = this.props;
@@ -35,7 +45,7 @@ var FieldElm = Field.create({
 				<h3 data-things="whatever">{label}</h3>
 
 
-				<GenerateTableSection {...this.props}/>
+				<GenerateTableSection {...this.props} onChange={this.change}/>
 
 				<br/>
 				<br/>
