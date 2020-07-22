@@ -7,6 +7,7 @@
 import React from 'react';
 import Portal from '../Portal';
 import Transition from 'react-addons-css-transition-group';
+import $ from 'jquery'
 
 const SIZES = {
 	arrowHeight: 12,
@@ -52,11 +53,24 @@ var Popout = React.createClass({
 			width: posNode.offsetWidth,
 			height: posNode.offsetHeight,
 		};
-		while (posNode.offsetParent) {
+
+		/*while (posNode.offsetParent) {
+
+			console.log('>>>',posNode)
+			console.log('>',pos.left,pos.top)
+			console.log('NEXT',posNode.offsetParent)
+
 			pos.top += posNode.offsetTop;
 			pos.left += posNode.offsetLeft;
 			posNode = posNode.offsetParent;
-		}
+		}*/
+
+		//#! fix not showing poput in modal -> use jquery offset in order to take correct offet and remove while system
+		let offset = $(posNode).offset();
+		pos.top = offset.top;
+		pos.left = offset.left;
+
+		
 
 		let leftOffset = Math.max(pos.left + (pos.width / 2) - (this.props.width / 2), SIZES.horizontalMargin);
 		let topOffset = pos.top + pos.height + SIZES.arrowHeight;
@@ -75,6 +89,8 @@ var Popout = React.createClass({
 			|| this.state.arrowLeftOffset !== arrowLeftOffset;
 
 		if (newStateAvaliable) {
+
+			
 			this.setState({
 				leftOffset: leftOffset,
 				topOffset: topOffset,

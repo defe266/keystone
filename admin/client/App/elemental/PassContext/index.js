@@ -8,6 +8,7 @@ class PassContext extends Component {
 		return this.props.context;
 	}
 	render () {
+
 		return Children.only(this.props.children);
 	}
 };
@@ -17,6 +18,7 @@ PassContext.propTypes = {
 };
 PassContext.childContextTypes = {
 	onClose: PropTypes.func,
+	dragDropManager: PropTypes.object,
 };
 
 export default PassContext;

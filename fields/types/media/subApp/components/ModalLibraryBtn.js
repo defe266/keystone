@@ -106,10 +106,12 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
     var isOpen = state.isOpen;
     var loading = state.loading;
     var collection = state.collection;
+
+    //console.log("props.hiddenFiles",props.hiddenFiles)
     collection = _.filter(collection, (i) => props.hiddenFiles.indexOf(i.id) == -1);
     var selection = state.selection;
 
-    //console.log(props.hiddenFiles)
+    
 
 
     return (

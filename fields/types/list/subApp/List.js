@@ -9,7 +9,7 @@ import Field from '../../Field';
 //var DragDropContext = require('react-dnd').DragDropContext;
 
 import { Fields } from 'FieldTypes';
-import { Button, GlyphButton } from '../../../../admin/client/App/elemental';
+import { Button, GlyphButton, Modal } from '../../../../admin/client/App/elemental';
 import InvalidFieldType from '../../../../admin/client/App/shared/InvalidFieldType';
 import Holder from './Holder'
 import ItemDrag from './ItemDrag'
@@ -19,7 +19,7 @@ function generateId () {
 	return i++;
 };
 
-const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children }) => (
+const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children,  collapse, onShow }) => (
 
 
 	<div>
@@ -33,12 +33,31 @@ const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children }) => (
 					paddingTop: 15,
 				}}>
 					{name && <input type="hidden" name={name} value={id}/>}
-					{children}
-					<div style={{ textAlign: 'right', paddingBottom: 10 }}>
+
+					<div style={{ float: collapse ? 'left' : 'none'}}>
+						{children}
+					</div>
+
+					<div style={{ textAlign: 'right', paddingBottom: 10, float: collapse ? 'right' : 'none'}}>
+
+						{collapse ? 
+
+							<span>
+								<Button size="xsmall" color="primary" onClick={e => onShow(index)}>
+									Edit
+								</Button>
+								&nbsp;&nbsp;
+							</span>
+
+						:null}
+						
+
 						<Button size="xsmall" color="danger" onClick={onRemove}>
 							Remove
 						</Button>
 					</div>
+
+					<div style={{clear: "both"}} />
 				</div>
 
 			</ItemDrag>
@@ -50,6 +69,13 @@ const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children }) => (
 
 
 var List = React.createClass({
+
+	getInitialState () {
+
+		return {
+			showModal: null
+		}
+	},
 
 	addItem () {
 		const { path, value, onChange } = this.props;
@@ -73,28 +99,22 @@ var List = React.createClass({
 	//# Add sort
 	changeOrder: function(indexFrom, indexTo){
 
-
-	    function moveObjectAtIndex(array, sourceIndex, destIndex) {
-
-	        var placeholder = {};
-	        // remove the object from its initial position and
-	        // plant the placeholder object in its place to
-	        // keep the array length constant
-	        var objectToMove = array.splice(sourceIndex, 1, placeholder)[0];
-	        // place the object in the desired position
-	        array.splice(destIndex, 0, objectToMove);
-	        // take out the temporary object
-	        array.splice(array.indexOf(placeholder), 1);
-	    }
-
 	    const { value: oldValue, path, onChange } = this.props;
 
-	    var value = oldValue.slice();
+	    let item = oldValue[indexFrom]
 
-	    moveObjectAtIndex(value, indexFrom, indexTo);
+	    let value = oldValue.filter((i) => i.id != item.id)
+
+	    let index = indexTo
+
+	    value  = [
+
+	      ...value.slice(0, index),
+	      item,
+	      ...value.slice(index)
+	    ]
 
 	    onChange({ path, value });
-
 	},
 
 	handleFieldChange (index, event) {
@@ -108,6 +128,17 @@ var List = React.createClass({
 		const value = [...head, item, ...tail];
 		onChange({ path, value });
 	},
+
+	handleClose () {
+		
+		this.setState({showModal:null});
+	},
+
+	handleShow (index) {
+		
+		this.setState({showModal:index});
+	},
+
 	renderFieldsForItem (index, value) {
 		return Object.keys(this.props.fields).map((path) => {
 			const field = this.props.fields[path];
@@ -134,6 +165,8 @@ var List = React.createClass({
 	renderItems () {
 		const { value = [], path } = this.props;
 		const onAdd = this.addItem;
+		const collapse = this.props.collapse
+
 		return (
 			<div>
 
@@ -143,15 +176,75 @@ var List = React.createClass({
 					const onRemove = e => this.removeItem(index);
 					const onChangeOrder = this.changeOrder
 
+					if(collapse){
+
+						var collapseKeys = collapse.split(' ')
+					}
+
+
 					return (
-						<ItemDom key={id} {...{ id, index, name, onRemove, onChangeOrder }}>
-							{this.renderFieldsForItem(index, value)}
+						<ItemDom key={id} {...{ id, index, name, onRemove, onChangeOrder, collapse}} onShow={this.handleShow}>
+							
+							{!collapse ? this.renderFieldsForItem(index, value) :
+
+								<div style={{lineHeight: "25px"}}>
+
+
+									<span className="octicon octicon-three-bars" /> &nbsp;&nbsp;
+
+
+									{collapseKeys.map(k => {
+
+										var subKs = k.split('.');
+
+										if(subKs.length > 1){
+
+											return value[subKs[0]] ? value[subKs[0]][subKs[1]] : ''
+
+										}else{
+
+											return value[k]
+										}
+
+									}).join(' ')}
+
+									{/*Only for submit propose*/}
+									<div style={{display: 'none'}}>{this.renderFieldsForItem(index, value)}</div>
+
+									<Modal.Dialog isOpen={this.state.showModal == index} onClose={this.handleClose} backdropClosesModal>
+										<Modal.Header
+											onClose={this.handleClose}
+											showCloseButton
+											text={'Edit Item'}
+										/>
+										<Modal.Body>
+
+											<br/>
+											{this.state.showModal == index ? this.renderFieldsForItem(index, value) : null}
+											<br/>
+											
+										</Modal.Body>
+										<Modal.Footer>
+											{/*<Button color="primary" submit>Update</Button>
+											<Button color="cancel" variant="link" onClick={this.handleClose}>Cancel</Button>*/}
+											<Button color="primary" onClick={this.handleClose}>Aceptar</Button>
+										</Modal.Footer>
+									</Modal.Dialog>
+									
+								</div>
+							}
+
+
 						</ItemDom>
 					);
 				})}
 				<GlyphButton color="success" glyph="plus" position="left" onClick={onAdd}>
 					Add
 				</GlyphButton>
+
+			
+
+				
 			</div>
 		);
 	},

@@ -14,7 +14,7 @@ function date (list, path, options) {
 	this._nativeType = Date;
 	this._underscoreMethods = ['format', 'moment', 'parse'];
 	this._fixedSize = 'medium';
-	this._properties = ['formatString', 'yearRange', 'isUTC', 'inputFormat', 'timezone'];
+	this._properties = ['formatString', 'yearRange', 'isUTC', 'inputFormat', 'timezone', 'stringStoreFormat'];
 	this.parseFormatString = options.inputFormat || 'YYYY-MM-DD';
 	this.formatString = (options.format === false) ? false : (options.format || 'Do MMM YYYY');
 	this.timezone = options.timezone ? options.timezone : null;
@@ -24,6 +24,20 @@ function date (list, path, options) {
 	if (this.formatString && typeof this.formatString !== 'string') {
 		throw new Error('FieldType.Date: options.format must be a string.');
 	}
+
+	//# Pure string mode support
+	if(options.stringStoreFormat){
+		this.stringStoreFormat = options.stringStoreFormat;
+		//this.parseFormatString = options.stringStoreFormat;
+
+		if(options.number){
+			this._nativeType = Number;
+		}else{
+			this._nativeType = String;
+		}
+		
+	}
+
 	date.super_.call(this, list, path, options);
 }
 date.properName = 'Date';
@@ -149,11 +163,21 @@ date.prototype.inputIsValid = function (data, required, item) {
 date.prototype.updateItem = function (item, data, callback) {
 	var value = this.getValueFromData(data);
 	if (value !== null && value !== '') {
+
 		// If the value is not null, empty string or undefined, parse it
 		var newValue = this.parse(value);
 		// If it's valid and not the same as the last value, save it
 		if (newValue.isValid() && (!item.get(this.path) || !newValue.isSame(item.get(this.path)))) {
-			item.set(this.path, newValue.toDate());
+
+			if(this.stringStoreFormat){
+
+				item.set(this.path, newValue.format(this.stringStoreFormat));
+
+			}else{
+
+				item.set(this.path, newValue.toDate());
+			}
+			
 		}
 	} else {
 		// If it's null or empty string, clear it out

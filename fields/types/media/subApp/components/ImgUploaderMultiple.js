@@ -107,7 +107,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
       self.setState({uploads : uploads});
 
       //# trigger change of img list with the new path added
-      var files = self.props.value;
+      var files = self.props.value ? self.props.value : [];
 
       files.push(id); //index ??????
 
@@ -135,7 +135,9 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
   addFromGallery: function(files){
 
-    this.props.onChange([...this.props.value, ...files]);
+    var value = this.props.value ? this.props.value : []
+
+    this.props.onChange([...value, ...files]);
   },
 
   changeOrder: function(indexFrom, indexTo){
@@ -191,11 +193,12 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
     var self = this;
 
+    var value = this.props.value ? this.props.value : []
     var files = [];
 
 
     //# uploaded
-    _.each(this.props.value, function(id, index){
+    _.each(value, function(id, index){
 
       files.push(
 
@@ -249,7 +252,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
           */}
             <Button component={ButtonFileInput} size="small" onChangeFile={this.uploadFilesManual}>Subir</Button>
             &nbsp;&nbsp;
-            <ModalLibraryBtn hiddenFiles={this.props.value} onAdd={this.addFromGallery}/>
+            <ModalLibraryBtn hiddenFiles={value} onAdd={this.addFromGallery}/>
             
 
           </div>

@@ -135,7 +135,7 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
             <Button component={ButtonFileInput} size="small" onChangeFile={this.uploadFilesManual}>Subir</Button>
             &nbsp;&nbsp;
-            <ModalLibraryBtn hiddenFiles={[this.props.value]} onAdd={this.addFromGallery} single/>
+            <ModalLibraryBtn hiddenFiles={this.props.value ? [this.props.value] : []} onAdd={this.addFromGallery} single/>
 
           </div>
 
