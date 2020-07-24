@@ -41,7 +41,7 @@ module.exports = Field.create({
 
 		
 
-		var newValue = this.props.value ? this.props.value : {};
+		var newValue = this.props.value ? {...this.props.value} : {};
 
 		newValue[lang] = event.value
 		

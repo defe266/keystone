@@ -19,7 +19,7 @@ function generateId () {
 	return i++;
 };
 
-const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children,  collapse, onShow }) => (
+const ItemDom = ({ name, id, index, onRemove, onChangeOrder, onDuplicate, children,  collapse, onShow }) => (
 
 
 	<div>
@@ -51,6 +51,12 @@ const ItemDom = ({ name, id, index, onRemove, onChangeOrder, children,  collapse
 
 						:null}
 						
+						<span>
+							<Button size="xsmall" color="primary" onClick={e => onDuplicate(index)}>
+								Duplicate
+							</Button>
+							&nbsp;&nbsp;
+						</span>
 
 						<Button size="xsmall" color="danger" onClick={onRemove}>
 							Remove
@@ -117,6 +123,20 @@ var List = React.createClass({
 	    onChange({ path, value });
 	},
 
+	duplicate (index) {
+
+		const { value: oldValue, path, onChange } = this.props;
+
+		var newItem = {...oldValue[index], ...{
+			id: generateId(),
+			_isNew: true,
+		}}
+
+		const value = oldValue.slice(0, index+1).concat([newItem]).concat(oldValue.slice(index));
+
+		onChange({ path, value });
+	},
+
 	handleFieldChange (index, event) {
 		const { value: oldValue, path, onChange } = this.props;
 		const head = oldValue.slice(0, index);
@@ -175,6 +195,8 @@ var List = React.createClass({
 					const name = !_isNew && `${path}[${index}][id]`;
 					const onRemove = e => this.removeItem(index);
 					const onChangeOrder = this.changeOrder
+					const onDuplicate = this.duplicate
+					
 
 					if(collapse){
 
@@ -183,7 +205,7 @@ var List = React.createClass({
 
 
 					return (
-						<ItemDom key={id} {...{ id, index, name, onRemove, onChangeOrder, collapse}} onShow={this.handleShow}>
+						<ItemDom key={id} {...{ id, index, name, onRemove, onChangeOrder, onDuplicate, collapse}} onShow={this.handleShow}>
 							
 							{!collapse ? this.renderFieldsForItem(index, value) :
 
