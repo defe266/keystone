@@ -30,19 +30,17 @@ var FieldElm = Field.create({
 	change: function  (value) {
 		//var newValue = this.props.value ? {...this.props.value} : {};
 		var newValue = value
-		console.log("newValue",newValue)
+
 		this.props.onChange({
 			path: this.props.path,
 			value: newValue,
 		});
-		console.log("propsss despues de change con newvalue en tableField",this.props)
 
 
 	},
 	
 	renderUI () {
 		const { label, value } = this.props;
-		console.log("props en tableField",this.props)
 		
 		return (
 			<div className={css(classes.container)}>

@@ -19,7 +19,7 @@ import {
 
 var List = React.createClass({
 	getInitialState () {
-		console.log("initial state generate",this.props)
+
 		if(!this.props.value){
 
 			return{
@@ -33,8 +33,7 @@ var List = React.createClass({
 			//var rows = Object.keys(this.props.value).length
 			var rows = this.props.value.length
 			var cols = this.props.value[0].length
-			console.log("rowwws",rows)
-			console.log("colss",cols)
+	
 			return {
 				nRows: rows,
 				nCols: cols,
@@ -162,7 +161,6 @@ var List = React.createClass({
 			display: "inline-block"
 		}
 
-		console.log("valor en render de generate",table)
 		return (
 			<div>
 				{/*<Grid.Row small="one-half" gutter={10}>

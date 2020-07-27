@@ -47,7 +47,7 @@ table.prototype.validateRequiredInput = function (item, data, callback) {
 table.prototype.updateItem = function (item, data, callback) {
 	
 	var value = this.getValueFromData(data);
-	console.log("value TABLA", value)
+
 	if(value){
 
 		item.set(this.path, value);

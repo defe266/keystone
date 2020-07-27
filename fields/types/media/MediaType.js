@@ -72,8 +72,6 @@ media.prototype.updateItem = function (item, data, callback) {
 
 	var value = this.getValueFromData(data);
 
-	console.log("data Media >>>> ",value);
-
 	if(value){
 
 		//value = value.map((i) => JSON.parse(i));

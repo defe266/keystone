@@ -39,13 +39,11 @@ module.exports = Field.create({
 		var newValue = this.props.value ? {...this.props.value} : {};
 
 		newValue[lang] = event.target.value
-		console.log("18n >>> newValue",newValue)
 		this.props.onChange({
 			path: this.props.path,
 			value: newValue,
 		});
 
-		console.log("18n >>> after change",this.props)
 	},
 
 	//+'.'+event.target.name
@@ -80,7 +78,6 @@ module.exports = Field.create({
 		})
 
 		
-		console.log("18 n>>> props en Field",this.props)
 		return (
 			<div>
 			
