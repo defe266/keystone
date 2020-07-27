@@ -69,11 +69,10 @@ media.prototype.validateRequiredInput = function (item, data, callback) {
  */
 media.prototype.updateItem = function (item, data, callback) {
 
-	//console.log("data >>>> ",data);
 
 	var value = this.getValueFromData(data);
 
-	//console.log("data 2 >>>> ",value);
+	console.log("data Media >>>> ",value);
 
 	if(value){
 

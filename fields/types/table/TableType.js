@@ -18,8 +18,8 @@ function table (keystoneList, path, options) {
 	this.options = options;
 
 	//this._nativeType = String;
-	//var baseSchema = { type: keystone.mongoose.Schema.Types.Mixed }
-	var baseSchema = []
+	var baseSchema = { type: keystone.mongoose.Schema.Types.Mixed }
+
 	this._nativeType = baseSchema
 	table.super_.call(this, keystoneList, path, options);
 }
@@ -45,9 +45,9 @@ table.prototype.validateRequiredInput = function (item, data, callback) {
  * Updates the value for this field in the item from a data object
  */
 table.prototype.updateItem = function (item, data, callback) {
-
+	
 	var value = this.getValueFromData(data);
-	console.log(value)
+	console.log("value TABLA", value)
 	if(value){
 
 		item.set(this.path, value);

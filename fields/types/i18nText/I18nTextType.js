@@ -159,7 +159,7 @@ i18nText.prototype.updateItem = function (item, data, callback) {
 
 	var values = this.getValueFromData(data);
 
-	
+
 	_.each(this.options.langs,(lang) => {
 
 		var pathFull = this.path+'.'+lang;
