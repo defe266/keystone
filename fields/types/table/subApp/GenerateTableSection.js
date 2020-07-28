@@ -49,7 +49,7 @@ var List = React.createClass({
 			
 	
 			//var table = {...this.props.value}
-			//var table = [...this.props.value]
+			var table = this.props.value ? this.props.value : []
 			var nCols = this.state.nCols
 			var nRows = this.state.nRows
 			var newTable = []
@@ -61,7 +61,8 @@ var List = React.createClass({
 				
 			}else{
 				var newTable = []
-			}*/
+			}*/	
+			
 
 			for(var i = 0; i < nRows;i++ ){
 
@@ -70,8 +71,8 @@ var List = React.createClass({
 				
 				for(var j = 0; j < nCols;j++ ){
 					//table[i][j] = ''
-					
-					if(this.props.value.length - 1  >= i && this.props.value[i].length - 1  >= j && this.props.value[i][j] != ''){
+				
+					if(table.length > 0 && table.length - 1  >= i && table[i].length - 1  >= j && table[i][j] != ''){
 						newTable[i][j] = this.props.value[i][j]
 					}else{
 						newTable[i][j] = ''
