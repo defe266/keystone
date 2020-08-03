@@ -91,10 +91,11 @@ module.exports = {
 
 		/*STYLES PARA ARREGLAR APARIENCIA DEL MODAL */
 		var styleInput = {
-			width: '92%',
+			width: 'calc(100% - 40px)',
 		}
 		var styleButton = {
-			right: '40px',
+			transform: "initial",
+
 		}
 		return (
 			<FormField key={item.key}>
