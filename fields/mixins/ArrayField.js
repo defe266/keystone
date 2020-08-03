@@ -27,7 +27,10 @@ module.exports = {
 	},
 
 	componentWillReceiveProps: function (nextProps) {
-		if (nextProps.value.join('|') !== reduceValues(this.state.values).join('|')) {
+
+		var nextPropsValue = nextProps.value ? nextProps.value  : []
+
+		if (nextPropsValue.join('|') !== reduceValues(this.state.values).join('|')) {
 			this.setState({
 				values: nextProps.value.map(newItem),
 			});
@@ -85,12 +88,21 @@ module.exports = {
 	renderItem: function (item, index) {
 		const Input = this.getInputComponent ? this.getInputComponent() : FormInput;
 		const value = this.processInputValue ? this.processInputValue(item.value) : item.value;
+
+		/*STYLES PARA ARREGLAR APARIENCIA DEL MODAL */
+		var styleInput = {
+			width: '92%',
+		}
+		var styleButton = {
+			right: '40px',
+		}
 		return (
 			<FormField key={item.key}>
-				<Input ref={'item_' + (index + 1)} name={this.getInputName(this.props.path)} value={value} onChange={this.updateItem.bind(this, item)} onKeyDown={this.addItemOnEnter} autoComplete="off" />
-				<Button type="link-cancel" onClick={this.removeItem.bind(this, item)} className="keystone-relational-button">
+				<Input ref={'item_' + (index + 1)} style={styleInput} name={this.getInputName(this.props.path)} value={value} onChange={this.updateItem.bind(this, item)} onKeyDown={this.addItemOnEnter} autoComplete="off" />
+				<Button type="link-cancel" style={styleButton}  onClick={this.removeItem.bind(this, item)} className="keystone-relational-button">
 					<span className="octicon octicon-x" />
 				</Button>
+
 			</FormField>
 		);
 	},

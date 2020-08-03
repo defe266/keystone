@@ -157,6 +157,7 @@ var List = React.createClass({
 	handleShow (index) {
 		
 		this.setState({showModal:index});
+
 	},
 
 	renderFieldsForItem (index, value) {
@@ -186,11 +187,13 @@ var List = React.createClass({
 		const { value = [], path } = this.props;
 		const onAdd = this.addItem;
 		const collapse = this.props.collapse
+		
 
 		return (
 			<div>
 
 				{value.map((value, index) => {
+
 					const { id, _isNew } = value;
 					const name = !_isNew && `${path}[${index}][id]`;
 					const onRemove = e => this.removeItem(index);
@@ -202,7 +205,6 @@ var List = React.createClass({
 
 						var collapseKeys = collapse.split(' ')
 					}
-
 
 					return (
 						<ItemDom key={id} {...{ id, index, name, onRemove, onChangeOrder, onDuplicate, collapse}} onShow={this.handleShow}>
