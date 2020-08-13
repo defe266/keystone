@@ -28,6 +28,7 @@ var FieldElm = Field.create({
 	},
 	
 	renderUI () {
+
 		const { label, value } = this.props;
 		return (
 			<div className={css(classes.container)}>

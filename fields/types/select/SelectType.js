@@ -13,7 +13,7 @@ function select (list, path, options) {
 	this.numeric = options.numeric ? true : false;
 	this._nativeType = (options.numeric) ? Number : String;
 	this._underscoreMethods = ['format', 'pluck'];
-	this._properties = ['ops', 'numeric'];
+	this._properties = ['ops', 'numeric','dynamicOptions'];
 	if (typeof options.options === 'string') {
 		options.options = options.options.split(',');
 	}
@@ -62,7 +62,7 @@ select.prototype.addToSchema = function (schema) {
 	};
 	schema.path(this.path, _.defaults({
 		type: this._nativeType,
-		enum: this.values,
+		//enum: this.values, //#! removed to permit dynamic options without restrictions
 		set: function (val) {
 			return (val === '' || val === null || val === false) ? undefined : val;
 		},

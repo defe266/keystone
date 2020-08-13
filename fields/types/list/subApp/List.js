@@ -160,7 +160,7 @@ var List = React.createClass({
 
 	},
 
-	renderFieldsForItem (index, value) {
+	renderFieldsForItem (index, value, values) {
 		return Object.keys(this.props.fields).map((path) => {
 			const field = this.props.fields[path];
 			if (typeof Fields[field.type] !== 'function') {
@@ -169,6 +169,7 @@ var List = React.createClass({
 			const props = assign({}, field);
 			props.value = value[field.path];
 			props.values = value;
+			props._values = values; //# fist level values for reference (select uses for dynamicOptions)
 			props.onChange = this.handleFieldChange.bind(this, index);
 			props.mode = 'edit';
 			props.inputNamePrefix = `${this.props.path}[${index}]`;
@@ -233,7 +234,7 @@ var List = React.createClass({
 									}).join(' ')}
 
 									{/*Only for submit propose*/}
-									<div style={{display: 'none'}}>{this.renderFieldsForItem(index, value)}</div>
+									<div style={{display: 'none'}}>{this.renderFieldsForItem(index, value, this.props.values)}</div>
 
 									<Modal.Dialog isOpen={this.state.showModal == index} onClose={this.handleClose} backdropClosesModal>
 										<Modal.Header
@@ -244,7 +245,7 @@ var List = React.createClass({
 										<Modal.Body>
 
 											<br/>
-											{this.state.showModal == index ? this.renderFieldsForItem(index, value) : null}
+											{this.state.showModal == index ? this.renderFieldsForItem(index, value, this.props.values) : null}
 											<br/>
 											
 										</Modal.Body>

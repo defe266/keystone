@@ -38,10 +38,37 @@ module.exports = Field.create({
 	},
 
 	renderField () {
-		const { numeric, ops, path, value: val } = this.props;
+		const { numeric, path, value: val } = this.props;
+		const dynamicOptions = this.props.dynamicOptions;
+		var ops = this.props.ops;
+
+		if(dynamicOptions){
+
+			var subKs = dynamicOptions.split('.');
+			var values = this.props._values ? this.props._values : this.props.values//# modo list nested compatibility
+			var list = values[subKs[0]]
+
+			var extraOptions = list.reduce((memo, item) => {
+
+				var option = item
+
+				if(subKs.length > 1){
+
+					option = option[subKs[1]]
+				}
+
+				option = { label: option, value: option }
+
+				return [...memo, option]
+
+			},[])
+
+			ops = [...ops, ...extraOptions]
+		}
+
 
 		// TODO: This should be natively handled by the Select component
-		const options = (numeric)
+		var options = (numeric)
 			? ops.map(function (i) {
 				return { label: i.label, value: String(i.value) };
 			})
@@ -49,6 +76,7 @@ module.exports = Field.create({
 		const value = (typeof val === 'number')
 			? String(val)
 			: val;
+			
 
 		return (
 			<div>
