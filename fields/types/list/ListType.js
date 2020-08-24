@@ -180,8 +180,6 @@ list.prototype.getData = function (item) {
 list.prototype.updateItem = function (item, data, files, callback) {
 
 
-	//console.log("updateItem")
-
 	if (typeof files === 'function') {
 		callback = files;
 		files = {};
@@ -189,46 +187,67 @@ list.prototype.updateItem = function (item, data, files, callback) {
 
 	var field = this;
 	var values = this.getValueFromData(data);
-
-
-	//console.log("values ",values)
+	
 
 	// Don't update the value when it is undefined
 	//#! FIX: null and empty values dont serialice using formData -> accept undifened as empty value
 	/*if (values === undefined) {
 		return utils.defer(callback);
 	}*/
+	
 	// Reset the value when null or an empty string is provided
 	if (values === null || values === '' || values === undefined) {
 		values = [];
 	}
+
+
 	// Wrap non-array values in an array
 	if (!Array.isArray(values)) {
-		values = [values];
+
+		//#! detect array object (especial case when change scheme in some scenarios) (is array but in Objet style)
+		if(values[0]){
+
+			values = Object.keys(values).map(k => values[k]);
+
+		}else{
+
+			values = [values];
+		}		
 	}
+
+	
 	// NOTE - this method will overwrite the entire array, which is less specific
 	// than it could be. Concurrent saves could lead to race conditions, but we
 	// can make it more clever in a future release; this is otherwise the most
 	// resiliant update method that can be implemented without a lot of complexity
 	var listArray = item.get(this.path);
+	
 	async.map(values, function (value, next) {
+
 		var prevItem = listArray.id(value.id);
 		var newItem = listArray.create(prevItem);
+
 		async.forEach(field.fieldsArray, function (nestedField, done) {
+
 			if (nestedField.updateItem.length === 4) {
 				nestedField.updateItem(newItem, value, files, done);
 			} else {
 				nestedField.updateItem(newItem, value, done);
 			}
+
 		}, function (err) {
+
 			next(err, newItem);
 		});
+
 	}, function (err, updatedValues) {
+
+		//console.log("updatedValues ",updatedValues)
+		//return callback('STOP');
+
 		if (err) return callback(err);
 		item.set(field.path, updatedValues);
 
-		//console.log('updatedValues',updatedValues)
-		//console.log('item',item)
 		callback();
 	});
 };
