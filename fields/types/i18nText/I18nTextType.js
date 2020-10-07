@@ -42,7 +42,6 @@ i18nText.prototype.addToSchema = function (schema) {
 
 	var field = this;
 	var options = this.options;
-
 	
 	this.paths = {};
 
@@ -59,7 +58,7 @@ i18nText.prototype.addToSchema = function (schema) {
 
 	_.each(options.langs, (lang) => {
 
-		schemaDef[lang] = { type: String }
+		schemaDef[lang] = options.index ? { type: String, index: true} : { type: String }
 	})
 
 	schema.nested[this.path] = true;
