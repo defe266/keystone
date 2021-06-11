@@ -105,6 +105,12 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
     if(this.props.onChange) this.props.onChange(null);
   },
 
+  uploadedAbort: function(file) {
+
+    this.setState({upload : null});
+
+  },
+
   render: function () {
 
     var self = this;
@@ -117,7 +123,7 @@ var ImgUploader = React.createClass({ //monitor.getDropResult()
 
     if(this.state.upload){
 
-      var file = <Upload upload={this.state.upload} onEnd={self.uploaded}/>
+      var file = <Upload upload={this.state.upload} sizeMax={self.props.sizeMax} onEnd={self.uploaded} onError={self.uploadedAbort}/>
     }
 
     return (

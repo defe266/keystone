@@ -190,6 +190,21 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
     } 
   },
 
+  uploadedAbort: function(index) {
+
+    var self = this;
+
+    return function(id){
+
+      var uploads = self.state.uploads;
+
+      delete uploads[index];
+
+      self.setState({uploads : uploads});
+    }
+    
+  },
+
 	render: function () {
 
     var self = this;
@@ -224,7 +239,7 @@ var ImgUploaderMultiple = React.createClass({	//monitor.getDropResult()
 
           <Grid.Col key={"upload_"+index}  small="one-half" medium="one-third" large="one-quarter">
 
-            <Upload upload={file} onEnd={self.uploaded(index)}/>
+            <Upload upload={file} sizeMax={self.props.sizeMax} onEnd={self.uploaded(index)} onError={self.uploadedAbort(index)}/>
 
           </Grid.Col>
           

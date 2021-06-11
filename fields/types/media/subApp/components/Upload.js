@@ -37,6 +37,15 @@ var Upload = React.createClass({  //monitor.getDropResult()
 
     if(this.props.upload){
 
+      if(this.props.sizeMax && this.props.upload.size > this.props.sizeMax*1000000){
+
+        alert('Error: '+this.props.sizeMax+'MB max.')
+
+        if(self.props.onError) self.props.onError();
+        
+        return 
+      } 
+
       //#preview
       this.reader.readAsDataURL(this.props.upload);
 

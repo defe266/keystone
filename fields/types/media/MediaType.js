@@ -27,7 +27,7 @@ function media (list, path, options) {
 		this._nativeType = baseSchema;
 	}
 
-	this._properties = ['many','model'];
+	this._properties = ['many','model','sizeMax'];
 	//this._underscoreMethods = ['crop'];
 	
 	media.super_.call(this, list, path, options);
