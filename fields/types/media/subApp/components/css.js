@@ -122,5 +122,8 @@ export default `
   text-overflow: ellipsis;
   padding: 4px 0;
 }
-
+.ImgUploader__item_name{
+  color: #7F7F7F;
+  font-size:12px;
+}
 `;

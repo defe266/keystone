@@ -68,7 +68,6 @@ var File = React.createClass({  //monitor.getDropResult()
 
     var connectDragSource = this.props.connectDragSource;
 
-
     var output = (
 
       <div className={'ImgUploader__item'}>
@@ -86,7 +85,9 @@ var File = React.createClass({  //monitor.getDropResult()
           <LoadingButton color="danger" variant="link" loading={props.loading} disabled={props.loading} onClick={this.deleteFile}>
             <Glyph name="x"/>
           </LoadingButton>
-
+          <div className="ImgUploader__item_name">
+            {props.id}
+          </div>
 
           
 
