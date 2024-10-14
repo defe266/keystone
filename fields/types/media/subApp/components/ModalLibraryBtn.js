@@ -9,9 +9,12 @@ import {
   Button,
   Grid,
   Center,
-  Spinner
+  Spinner,
+  Pagination
 } from '../../../../../admin/client/App/elemental';
 
+
+const limit = 100;
 
 var ModalLibrary = React.createClass({  //monitor.getDropResult()
 
@@ -24,7 +27,9 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
       collection: [],
       selection: [],
       loading: false,
-      isOpen: false
+      isOpen: false,
+      page: 1,
+      count: 0,
 
     }
   },
@@ -34,24 +39,43 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
 
     if(!prevState.isOpen && this.state.isOpen){
 
-      this.setState({loading : true})
-
-      request
-      //.post(sd.API_URL+"/uploads")
-      .get(Keystone.adminPath + '/api/uploads')
-      //.set('auth', this.props.token)
-      //.send(formData)
-      .end((err, res) => {
-  
-          //if(err) return done(err);
-          this.setState({
-            collection: res.body.results,
-            selection: [],
-            loading : false
-          })
-      });
+      this.refresh()
 
     }
+  },
+
+  refresh: function(){
+
+    var page = this.state.page
+
+    this.setState({loading : true})
+
+    request
+    .get(Keystone.adminPath + '/api/uploads')
+    .query({ 
+      skip: limit*(page-1), 
+      limit: limit, 
+      sort:"-createdAt"
+    })
+    .end((err, res) => {
+
+      //if(err) return done(err);
+
+      this.setState({
+        collection: res.body.results,
+        count:res.body.count,
+        selection: [],
+        loading : false,
+      })
+    });
+  },
+
+  changePage: function(page){
+
+    this.setState({page:page}, () => {
+
+      this.refresh()
+    })
   },
 
   select: function(id){
@@ -169,6 +193,18 @@ var ModalLibrary = React.createClass({  //monitor.getDropResult()
                 {selection.length > 0 ? <Button color="primary" onClick={this.add}>Añadir</Button> : null}
 
                 <Button color="default" variant="link" onClick={this.close}>Cerrar</Button>
+
+                <Pagination 
+
+                  currentPage={this.state.page}
+                  onPageSelect={this.changePage}
+                  pageSize={limit}
+                  plural="Uploads"
+                  singular="Upload"
+                  total={this.state.count}
+                  limit={8}
+                  style={{"marginLeft": "auto","marginBottom": "0"}}
+                />
 
               </Modal.Footer>
             </Modal.Dialog>
